@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Detection Paddy Leaf Diseases</title>
+    <!-- Add any additional CSS or stylesheets here -->
+    <style>
+        /* Reset default margin and padding */
+        body, h1, h2, h3, p {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('static/image/RICE PLANT (1).jpg');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #333; /* Set main text color */
+        }
+
+        header {
+            background-color: rgba(52, 58, 64, 0.8);
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        main {
+            max-width: 600px;
+            width: 100%;
+            padding: 2em;
+            background-color: rgba(255, 255, 255, 0.9); /* Add background opacity */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 2em;
+            text-align: center;
+        }
+
+        form {
+            margin-top: 2em;
+        }
+
+        label {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 0.8em 1.5em;
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-bottom: 1em;
+        }
+
+        label:hover {
+            background-color: #0056b3;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        #submit-btn {
+            background-color: #28a745;
+            color: #fff;
+            padding: 0.8em 1.5em;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        #submit-btn:hover {
+            background-color: #218838;
+        }
+
+        #result {
+            margin-top: 2em;
+            background-color: #f0f0f0;
+            padding: 1em;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .error {
+            color: #dc3545;
+            margin-top: 0.5em;
+        }
+
+        #selected-image {
+            max-width: 100%;
+            margin-top: 1em;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: rgba(52, 58, 64, 0.8);
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+            width: 100%;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Add media query for smaller screens */
+        @media screen and (max-width: 600px) {
+            main {
+                margin: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Paddy Leaf Disease Detection</h1>
+    </header>
+
+    <main>
+        <form action="/process_image" method="post" enctype="multipart/form-data">
+            <label for="image">Choose an image</label>
+            <input type="file" id="image" name="image" accept="image/*" onchange="displayImage(this)" required>
+            <button id="submit-btn" type="submit">Detect Diseases</button>
+        </form>
+
+        <img id="selected-image" alt="Selected Image" style="display: none;">
+
+        <div id="result">
+            <!-- The result will be displayed here -->
+            {{ error }}
+            {{ reply }}
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Object Detection Paddy Leaf Disease</p>
+    </footer>
+
+    <script>
+        function displayImage(input) {
+            var file = input.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('selected-image').src = e.target.result;
+                    document.getElementById('selected-image').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+</body>
+</html>
